@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				background-color: #fbf794;
+			}
+			a{
+				text-decoration: none;
+			}
+			p{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				position: absolute;
+				margin-left: 420px;
+			}
+			#text{
+				width:400px;
+				height:200px;
+				background-color: rgba(255,255,255,.5);
+				border-radius: 20px;
+				padding: 17px;
+				line-height: 25px;
+				font: 16px "微软雅黑";
+			}
+			#menu{
+				width:100px;
+				text-align: center;
+				position: absolute;
+				left: 441px;
+				top:100px;
+			}
+			#menu p{
+				background-color: rgba(255,255,255,.5);
+				line-height: 30px;
+				height:30px;
+				font-weight: bold;
+			}
+			#menu div{
+				display: none;
+			}
+			.prodct{
+				height:30px;
+				width:320px;
+				border-bottom: 3px solid orange;
+			}
+			.prodct a{
+				float: left;
+				width:60px;
+				height:30px;
+				text-align: center;
+				line-height: 30px;
+				color: black;
+				font-weight: bold;
+			}
+			.prodct .active{
+				background-color: rgba(0,0,0,.5);
+				color: white;
+			}
+			.cont{
+				margin-top: 10px;
+			}
+			.inp{
+				width:100px;
+			}
+			#list{
+				margin-top: 10px;
+				
+			}
+			#cz,#th{
+				display: none;
+				padding: 20px;
+				border: 10px solid rgba(255,255,255,.3);
+			}
+			#menu .activeM{
+				background-color: orange;
+				font-weight: bold;
+			}
+			#text span{
+				background-color: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<p id="text">
+				川普在竞选时多次声称，"我会让苹果在我们国家、而不是在中国生产电脑和手机。"他发出的信号是：这将为美国人创造就业机会，国家也就此重新"强大"。据日经亚洲周刊（Nikkei Asian Review）的报道，苹果公司曾授权鸿海科技与和硕联合就企业迁回美国的耗资进行评估，据该文援引一个不愿透露姓名的消息来源称，"鸿海科技这样做了，但和硕联合则因费用缘故拒绝进行这样的核算。"按照鸿海科技的计算结果，"iPhone假如在美国生产，成本至少翻一倍。"
+			</p>
+			<div id="menu">
+				<p style="display: block;">展开</p>
+				<div>
+					<p class="activeM">查找</p>
+					<p>替换</p>
+				</div>
+			</div>
+			<div id="list">
+				<div id="cz">
+					<div class="prodct">
+						<a href="#" class="active">查找</a>
+						<a href="#">替换</a>
+					</div>
+					<div class="cont">
+						<input type="text" class="inp"/>
+						<input type="button" value="查找" id="czBtn"/>
+					</div>
+				</div>
+				
+				<div id="th">
+					<div class="prodct">
+						<a href="#" >查找</a>
+						<a href="#" class="active">替换</a>
+					</div>
+					<div class="cont">
+						<input type="text"  class="inp"/>
+						<input type="text"  class="inp"/>
+						<input type="button" value="替换" id="thBtn"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			var open=document.querySelectorAll("#menu p:nth-of-type(1)")[0];
+			var menu=document.querySelectorAll("#menu div")[0];
+			var menuP=document.querySelectorAll("#menu div p");
+			var czBox=document.getElementById("cz");
+			var thBox=document.getElementById("th");
+			var list_box=document.querySelectorAll("#list>div");
+			var czB_th=document.querySelectorAll("#cz a")[1];
+			var thB_cz=document.querySelectorAll("#th a")[0];
+			var czBtn=document.getElementById("czBtn");
+			var thBtn=document.getElementById("thBtn");
+			var cz_inp=document.querySelectorAll("#cz input")[0];
+			var th_inp1=document.querySelectorAll("#th input")[0];
+			var th_inp2=document.querySelectorAll("#th input")[1];
+			var text=document.getElementById("text");
+			
+			open.onclick=function(){
+				menu.style.display="block";
+			}
+			for(var i=0;i<menuP.length;i++){
+				menuP[i].index=i;
+				menuP[i].onmouseover=function(){
+					for(var i=0;i<menuP.length;i++){
+						menuP[i].className="";
+					}
+					this.className="activeM";
+				}
+				menuP[i].onclick=function(){
+					menu.style.display="none";
+				}
+			}
+			menuP[0].onclick=function(){
+				menu.style.display="none";
+				czBox.style.display="block";
+				thBox.style.display="none";
+			}
+			menuP[1].onclick=function(){
+				menu.style.display="none";
+				thBox.style.display="block";
+				czBox.style.display="none";
+			}
+			czB_th.onclick=function(){
+				czBox.style.display="none";
+				thBox.style.display="block";
+			}
+			thB_cz.onclick=function(){
+				czBox.style.display="block";
+				thBox.style.display="none";
+			}
+			
+			czBtn.onclick=function(){
+				var str_cz=cz_inp.value;
+				 tab(str_cz,str_cz);
+			}
+			
+			thBtn.onclick = function(){
+		        var str_th1 = th_inp1.value;
+		        var str_th2 = th_inp2.value;
+		        tab(str_th1,str_th2);
+	        }
+			
+			function tab(a,b){
+				if(a==""){
+		           		alert('请输入内容');
+		           		return;
+		         }
+		        if(text.innerHTML.indexOf(a)==-1){
+	            	alert('查找的内容不存在');
+	           		return;
+	            }
+		         
+		         text.innerHTML=text.innerHTML.split("<span>").join('');
+		         text.innerHTML=text.innerHTML.split("</span>").join('');
+		         
+		        text.innerHTML = text.innerHTML.split(a).join('<span>' + b + '</span>');
+			}
+		</script>
+	</body>
+</html>
